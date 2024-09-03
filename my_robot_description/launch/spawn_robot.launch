@@ -1,0 +1,14 @@
+<launch>
+    <param name="robot_description" command="$(find xacro)/xacro '$(find my_robot_description)/urdf/example_robot.urdf.xacro'" />
+    
+    <!-- Launch RViz -->
+    <!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(find my_robot_description)/rviz/my_robot.rviz"/> -->
+
+    <!-- Spawn the robot in Gazebo -->
+    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model my_robot" output="screen"/>
+
+    <!-- Launch Gazebo with an empty world -->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="$(find my_robot_description)/worlds/example_world.world"/>
+    </include>
+</launch>
